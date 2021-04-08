@@ -1,0 +1,49 @@
+version: "3.5"
+services:
+  app:
+    image: mattermost/focalboard
+    hostname: focalboard
+    container_name: focalboard
+    restart: on-failure:5
+    depends_on:
+      - focalboard-db
+    expose:
+      - 8000
+    environment:
+      - VIRTUAL_PORT=8000
+      - VIRTUAL_HOST=${APP_DOMAIN}
+      - LETSENCRYPT_HOST=${APP_DOMAIN}
+    volumes:
+      - "./config.json:/opt/focalboard/config.json"
+    networks:
+      - focalboard
+      - proxy
+
+  focalboard-db:
+    image: postgres:latest
+    hostname: focalboard-postgres
+    container_name: focalboard-postgres
+    restart: on-failure:5
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - focalboard
+    volumes:
+      - "focalboard_data:/var/lib/postgresql/data"
+
+volumes:
+  focalboard_data:
+    name: focalboard_data
+
+networks:
+  proxy:
+    external: true
+  focalboard:
+    name: focalboard

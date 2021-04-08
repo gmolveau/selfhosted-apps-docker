@@ -1,0 +1,62 @@
+version: '3.5'
+
+services:
+
+  nginx_proxy:
+    container_name: nginx_proxy
+    hostname: nginx_proxy
+    build:
+      context: .
+      dockerfile: nginx_proxy.dockerfile
+    restart: on-failure:5
+    ports:
+      - 80:80
+      - 443:443
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+    volumes:
+      - nginx_conf.d:/etc/nginx/conf.d
+      - nginx_certs:/etc/nginx/certs:ro
+      - nginx_vhost.d:/etc/nginx/vhost.d
+      - nginx_dhparam:/etc/nginx/dhparam
+      - nginx_htpasswd:/etc/nginx/htpasswd:ro
+      - nginx_html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro # NOTE, this container has access to docker socket (this is like root)
+    networks:
+      - proxy
+
+  letsencrypt_companion:
+    container_name: nginx_proxy_companion
+    hostname: nginx_proxy_companion
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: on-failure:5
+    env:
+      - DEFAULT_EMAIL=${DEFAULT_EMAIL}
+    depends_on:
+      - nginx_proxy
+    volumes:
+      - nginx_conf.d:/etc/nginx/conf.d
+      - nginx_certs:/etc/nginx/certs
+      - nginx_vhost.d:/etc/nginx/vhost.d
+      - nginx_html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro # NOTE, this container has access to docker socket (this is like root)
+    networks:
+      - proxy
+
+volumes:
+  nginx_certs:
+    name: nginx_certs
+  nginx_conf.d:
+    name: nginx_conf.d
+  nginx_htpasswd:
+    name: nginx_htpasswd
+  nginx_vhost.d:
+    name: nginx_vhost.d
+  nginx_html:
+    name: nginx_html
+  nginx_dhparam:
+    name: nginx_dhparam
+
+networks:
+  proxy:
+    name: proxy

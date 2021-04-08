@@ -1,0 +1,38 @@
+# README : https://github.com/wallabag/docker
+# MIGRATION : docker exec -t wallabag /var/www/wallabag/bin/console doctrine:migrations:migrate --env=prod --no-interaction
+# INSTALL : default admin user is wallabag/wallabag (add another user and deactivate this account)
+version: '3.5'
+
+services:
+  wallabag:
+    container_name: wallabag
+    hostname: wallabag
+    image: wallabag/wallabag
+    restart: on-failure:5
+    expose:
+      - 80
+    env:
+      # GENERAL
+      - TZ=Europe/Paris
+      # NGINX + LETSENCRYPT
+      - VIRTUAL_PORT=80
+      - VIRTUAL_HOST=${APP_DOMAIN}
+      - LETSENCRYPT_HOST=${APP_DOMAIN}
+      # APP
+      - SYMFONY__ENV__FROM_EMAIL=${SYMFONY__ENV__FROM_EMAIL}
+      - SYMFONY__ENV__DOMAIN_NAME=${SYMFONY__ENV__DOMAIN_NAME}
+    volumes:
+      - wallabag_images:/var/www/wallabag/web/assets/images
+      - wallabag_data:/var/www/wallabag/data
+    networks:
+      - proxy
+
+volumes:
+  wallabag_images:
+    name: wallabag_images
+  wallabag_data:
+    name: wallabag_data
+
+networks:
+  proxy:
+    external: true

@@ -1,0 +1,86 @@
+version: '3.5'
+
+services:
+
+  nextcloud_db:
+    container_name: nextcloud_db
+    hostname: nextcloud_db
+    image: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: on-failure:5
+    env:
+      # General
+      - TZ=Europe/Paris
+      # app
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+    volumes:
+      - nextcloud_db:/var/lib/mysql
+    networks:
+      - nextcloud
+
+  nextcloud_app:
+    container_name: nextcloud_app
+    hostname: nextcloud_app
+    image: nextcloud:21-apache
+    restart: on-failure:5
+    depends_on:
+      - nextcloud_db
+    env:
+      # General
+      - TZ=Europe/Paris
+      # nginx + letsencrypt
+      - VIRTUAL_HOST=${NEXTCLOUD_DOMAIN}
+      - LETSENCRYPT_HOST=${NEXTCLOUD_DOMAIN}
+      # app
+      - MYSQL_HOST=nextcloud_db # name of the service
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+    volumes:
+      - nextcloud_data:/var/www/html
+    networks:
+      - proxy
+      - nextcloud
+
+  collabora:
+    container_name: collabora
+    hostname: collabora
+    image: collabora/code
+    restart: on-failure:5
+    depends_on:
+      - nextcloud_app
+    cap_add:
+      - MKNOD
+    expose:
+      - 9980
+    env:
+      # General
+      - TZ=Europe/Paris
+      # nginx + letsencrypt
+      - VIRTUAL_PROTO=https
+      - VIRTUAL_PORT=9980
+      - VIRTUAL_HOST=${COLLABORA_DOMAIN}
+      - LETSENCRYPT_HOST=${COLLABORA_DOMAIN}
+      # app
+      - domain=${NEXTCLOUD_DOMAIN}
+    networks:
+      - proxy
+
+volumes:
+  nextcloud_db:
+    name: nextcloud_db
+  nextcloud_data:
+    name: nextcloud_data
+
+networks:
+  proxy:
+    external: true
+  nextcloud:
+    name: nextcloud
+
+# FAQ
+# nextcloud client "grant access" hangs forever :
+# https://help.nextcloud.com/t/connection-wizard-is-looping-between-log-in-and-grant-access/46809/6
