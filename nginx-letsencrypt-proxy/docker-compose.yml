@@ -30,7 +30,7 @@ services:
     hostname: nginx_proxy_companion
     image: jrcs/letsencrypt-nginx-proxy-companion
     restart: on-failure:5
-    env:
+    environment:
       - DEFAULT_EMAIL=${DEFAULT_EMAIL}
     depends_on:
       - nginx_proxy

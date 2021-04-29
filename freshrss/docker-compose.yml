@@ -6,7 +6,7 @@ services:
     hostname: freshrss
     image: linuxserver/freshrss
     restart: on-failure:5
-    env:
+    environment:
       # General
       - TZ=Europe/Paris
       - PUID=1000

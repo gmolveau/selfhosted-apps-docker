@@ -55,7 +55,7 @@ services:
     restart: on-failure:5
     expose:
       - 80
-    env:
+    environment:
       # General
       - TZ=Europe/Paris
       # nginx + letsencrypt

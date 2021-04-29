@@ -8,7 +8,7 @@ services:
     image: mariadb
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: on-failure:5
-    env:
+    environment:
       # General
       - TZ=Europe/Paris
       # app
@@ -28,7 +28,7 @@ services:
     restart: on-failure:5
     depends_on:
       - nextcloud_db
-    env:
+    environment:
       # General
       - TZ=Europe/Paris
       # nginx + letsencrypt
@@ -56,7 +56,7 @@ services:
       - MKNOD
     expose:
       - 9980
-    env:
+    environment:
       # General
       - TZ=Europe/Paris
       # nginx + letsencrypt

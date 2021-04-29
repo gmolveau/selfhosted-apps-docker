@@ -21,7 +21,7 @@ services:
     depends_on:
       - wekan_db
     restart: on-failure:5
-    env:
+    environment:
       # General
       - TZ=Europe/Paris
       # NGINX + LETSENCRYPT
