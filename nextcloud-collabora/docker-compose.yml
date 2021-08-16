@@ -5,7 +5,7 @@ services:
   nextcloud_db:
     container_name: nextcloud_db
     hostname: nextcloud_db
-    image: mariadb
+    image: mariadb:10.5
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: on-failure:5
     environment:
