@@ -5,8 +5,8 @@ services:
   nextcloud_db:
     container_name: nextcloud_db
     hostname: nextcloud_db
-    image: mariadb:10.5
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    image: mariadb:10.6
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-read-only-compressed=OFF --skip-innodb-read-only-compressed
     restart: on-failure:5
     environment:
       # General
@@ -81,6 +81,12 @@ networks:
   nextcloud:
     name: nextcloud
 
-# FAQ
-# nextcloud client "grant access" hangs forever :
+### FAQ
+## nextcloud client "grant access" hangs forever :
 # https://help.nextcloud.com/t/connection-wizard-is-looping-between-log-in-and-grant-access/46809/6
+## mariadb 10.6 bug
+# https://help.nextcloud.com/t/update-to-22-failed-with-database-error-updated/120682/12
+## after updating nextcloud to a major release
+# docker exec --user www-data nextcloud_app php occ upgrade
+# docker exec --user www-data nextcloud_app php occ maintenance:repair
+# docker exec --user www-data nextcloud_app php occ maintenance:mode --off
