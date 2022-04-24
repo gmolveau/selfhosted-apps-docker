@@ -4,14 +4,13 @@ services:
 
   nginx_proxy:
     container_name: nginx_proxy
-    hostname: nginx_proxy
     build:
       context: .
       dockerfile: nginx_proxy.dockerfile
     restart: on-failure:5
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
     labels:
       com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
     volumes:
@@ -25,21 +24,22 @@ services:
     networks:
       - proxy
 
-  letsencrypt_companion:
-    container_name: nginx_proxy_companion
-    hostname: nginx_proxy_companion
-    image: jrcs/letsencrypt-nginx-proxy-companion
+  acme_companion:
+    image: nginxproxy/acme-companion
+    container_name: nginx_proxy_acme
     restart: on-failure:5
     environment:
       - DEFAULT_EMAIL=${DEFAULT_EMAIL}
+      - NGINX_PROXY_CONTAINER=nginx_proxy
     depends_on:
       - nginx_proxy
     volumes:
       - nginx_conf.d:/etc/nginx/conf.d
-      - nginx_certs:/etc/nginx/certs
+      - nginx_certs:/etc/nginx/certs:rw
       - nginx_vhost.d:/etc/nginx/vhost.d
       - nginx_html:/usr/share/nginx/html
-      - /var/run/docker.sock:/var/run/docker.sock:ro # NOTE, this container has access to docker socket (this is like root)
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - proxy
 
@@ -56,6 +56,8 @@ volumes:
     name: nginx_html
   nginx_dhparam:
     name: nginx_dhparam
+  acme:
+    name: acme
 
 networks:
   proxy:

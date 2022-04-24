@@ -5,12 +5,12 @@ set -o nounset # set -u
 set -o pipefail
 
 apps=(
-    "bitwarden"
+    #"bitwarden"
     "freshrss"
     "nextcloud-collabora"
     "nginx-letsencrypt-proxy"
     "nginx-static"
-    "nitter"
+    #"nitter"
     "wallabag"
     "wekan"
 )
