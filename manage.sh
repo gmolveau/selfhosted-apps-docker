@@ -8,11 +8,12 @@ apps=(
     #"bitwarden"
     "freshrss"
     "nextcloud-collabora"
-    "nginx-letsencrypt-proxy"
     "nginx-static"
     #"nitter"
     "wallabag"
     "wekan"
+    # always put the proxy last
+    "nginx-letsencrypt-proxy"
 )
 
 function update() {
