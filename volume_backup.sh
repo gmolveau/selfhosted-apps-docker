@@ -15,6 +15,7 @@ set -o pipefail
 # references :
 # - https://medium.com/@loomchild/backup-restore-docker-named-volumes-350397b8e362 (https://web.archive.org/web/20210408185936/https://jareklipski.medium.com/backup-restore-docker-named-volumes-350397b8e362)
 # - https://blog.ssdnodes.com/blog/docker-backup-volumes/ (https://web.archive.org/web/20210408185924/https://blog.ssdnodes.com/blog/docker-backup-volumes/)
+# - https://docs.docker.com/storage/volumes/#backup-restore-or-migrate-data-volumes
 
 function backup() {
     if (($# < 2)); then
