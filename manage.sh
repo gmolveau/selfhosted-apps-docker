@@ -6,8 +6,8 @@ set -o pipefail
 
 # check which "docker compose" flavour to use
 DOCKERCOMPOSE="docker compose"
-if ! command -v "${DOCKERCOMPOSE}" &> /dev/null; then
-    DOCKERCOMPOSE="docker-compose";
+if ! command -v ${DOCKERCOMPOSE} &> /dev/null; then
+    DOCKERCOMPOSE="docker-compose"
 fi
 
 apps=(
@@ -27,7 +27,8 @@ function update() {
         (
             cd "${app}" \
                 && ${DOCKERCOMPOSE} pull \
-                && ${DOCKERCOMPOSE} up --build -d
+                && ${DOCKERCOMPOSE} build --force-rm --no-cache \
+                && ${DOCKERCOMPOSE} up --force-recreate -d
         )
     done
     docker system prune -f
