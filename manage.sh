@@ -4,6 +4,12 @@ set -o errexit # set -e
 set -o nounset # set -u
 set -o pipefail
 
+# check which "docker compose" flavour to use
+DOCKERCOMPOSE="docker compose"
+if ! command -v "${DOCKERCOMPOSE}" &> /dev/null; then
+    DOCKERCOMPOSE="docker-compose";
+fi
+
 apps=(
     #"bitwarden"
     "freshrss"
@@ -20,8 +26,8 @@ function update() {
     for app in "${apps[@]}"; do
         (
             cd "${app}" \
-                && docker-compose pull \
-                && docker-compose up --build -d
+                && ${DOCKERCOMPOSE} pull \
+                && ${DOCKERCOMPOSE} up --build -d
         )
     done
     docker system prune -f
@@ -31,7 +37,7 @@ function stop() {
     for app in "${apps[@]}"; do
         (
             cd "${app}" \
-                && docker-compose down
+                && ${DOCKERCOMPOSE} down
         )
     done
     docker system prune -f

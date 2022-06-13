@@ -10,7 +10,7 @@ set -o pipefail
 
 ### multiple restore
 # $ DEST="/media/usb/volumes_backup"
-# $ for v in nextcloud_data nextcloud_db wallabag_data wallabag_images wekan_db wekan_db_dump; do docker volume create "$v" && bash volume_backup.sh restore "$v" "$DEST"; done
+# $ for v in nextcloud_data nextcloud_db wallabag_data wallabag_images wekan_db wekan_db_dump; do docker volume create "$v" && bash volume_backup.sh restore "$v" $(ls -Art "${DEST}/${v}"* | tail -n 1); done
 
 # references :
 # - https://medium.com/@loomchild/backup-restore-docker-named-volumes-350397b8e362 (https://web.archive.org/web/20210408185936/https://jareklipski.medium.com/backup-restore-docker-named-volumes-350397b8e362)
@@ -64,7 +64,7 @@ function restore() {
 
     BACKUP_PATH=$2
     if [ ! -f "$BACKUP_PATH" ]; then
-        echo "error : backup '$BACKUP_PATH' does not exist"
+        echo "error : backup '$BACKUP_PATH' does not exist / is not a file"
         exit 1
     fi
 
