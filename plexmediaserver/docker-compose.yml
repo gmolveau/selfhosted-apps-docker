@@ -4,7 +4,7 @@ services:
   plex:
     container_name: plex
     image: plexinc/pms-docker
-    hostname: plex
+    hostname: ${APP_DOMAIN}
     restart: on-failure:5
     environment:
       # General
@@ -14,11 +14,9 @@ services:
       - VIRTUAL_HOST=${APP_DOMAIN}
       - LETSENCRYPT_HOST=${APP_DOMAIN}
       # APP
-      - PUID=1000
-      - PGID=1000
       - PLEX_CLAIM=${PLEX_CLAIM}
-    # ports:
-    #   - "32400:32400/tcp"
+    ports:
+      - "32400:32400/tcp"
     networks:
       - proxy
     devices:
@@ -30,8 +28,6 @@ services:
 volumes:
   plex_config:
     name: plex_config
-  plex_transcode:
-    name: plex_transcode
 
 networks:
   proxy:

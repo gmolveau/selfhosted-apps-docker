@@ -18,6 +18,7 @@ apps=(
     #"nitter"
     "wallabag"
     "wekan"
+    "plexmediaserver"
     # always put the proxy last
     "nginx-letsencrypt-proxy"
 )
