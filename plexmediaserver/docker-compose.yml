@@ -1,0 +1,38 @@
+version: "3.5"
+
+services:
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker
+    hostname: plex
+    restart: on-failure:5
+    environment:
+      # General
+      - TZ=Europe/Paris
+      # NGINX + LETSENCRYPT
+      - VIRTUAL_PORT=32400
+      - VIRTUAL_HOST=${APP_DOMAIN}
+      - LETSENCRYPT_HOST=${APP_DOMAIN}
+      # APP
+      - PUID=1000
+      - PGID=1000
+      - PLEX_CLAIM=${PLEX_CLAIM}
+    # ports:
+    #   - "32400:32400/tcp"
+    networks:
+      - proxy
+    devices:
+      - "/dev/dri:/dev/dri"
+    volumes:
+      - plex_config:/config # plex database
+      - ~/files:/data # library
+
+volumes:
+  plex_config:
+    name: plex_config
+  plex_transcode:
+    name: plex_transcode
+
+networks:
+  proxy:
+    external: true
