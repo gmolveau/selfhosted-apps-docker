@@ -22,19 +22,19 @@ apps=(
     "nginx-letsencrypt-proxy"
 )
 
-function update() {
+function up() {
     for app in "${apps[@]}"; do
         (
             cd "${app}" \
                 && ${DOCKERCOMPOSE} pull \
-                && ${DOCKERCOMPOSE} build --force-rm --no-cache \
+                && ${DOCKERCOMPOSE} build --pull --force-rm --no-cache \
                 && ${DOCKERCOMPOSE} up --force-recreate -d
         )
     done
     docker system prune -f
 }
 
-function stop() {
+function down() {
     for app in "${apps[@]}"; do
         (
             cd "${app}" \
@@ -56,13 +56,13 @@ if (($# < 1)); then
 fi
 
 case "$1" in
-    "update")
+    "up")
         shift
-        update "$@"
+        up "$@"
         ;;
-    "stop")
+    "down")
         shift
-        stop "$@"
+        down "$@"
         ;;
     *)
         echo "unknown command"
