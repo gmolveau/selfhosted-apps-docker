@@ -1,0 +1,55 @@
+version: "3.5"
+
+services:
+  transmission:
+    container_name: transmission
+    hostname: transmission
+    image: haugene/transmission-openvpn
+    cap_add:
+      - NET_ADMIN
+    restart: on-failure:5
+    environment:
+      # General
+      - TZ=Europe/Paris
+      # APP
+      - CREATE_TUN_DEVICE=true
+      - OPENVPN_OPTS=${OPENVPN_OPTS}
+      - LOCAL_NETWORK=${LOCAL_NETWORK}
+      - OPENVPN_PROVIDER=${OPENVPN_PROVIDER}
+      - OPENVPN_USERNAME=${OPENVPN_USERNAME}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - NORDVPN_CATEGORY=${NORDVPN_CATEGORY}
+      - NORDVPN_PROTOCOL=${NORDVPN_PROTOCOL}
+      - NORDVPN_COUNTRY=${NORDVPN_COUNTRY}
+      - TRANSMISSION_WEB_UI=${TRANSMISSION_WEB_UI}
+    dns:
+      - 1.1.1.1
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ~/files:/data
+    networks:
+      - transmission_network
+
+  transmission_proxy:
+    container_name: transmission_proxy
+    hostname: transmission_proxy
+    image: haugene/transmission-openvpn-proxy
+    restart: on-failure:5
+    environment:
+      # General
+      - TZ=Europe/Paris
+      # NGINX + LETSENCRYPT
+      - VIRTUAL_PORT=8080
+      - VIRTUAL_HOST=${APP_DOMAIN}
+      - LETSENCRYPT_HOST=${APP_DOMAIN}
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - proxy
+      - transmission_network
+
+networks:
+  transmission_network:
+    name: transmission_network
+  proxy:
+    external: true
