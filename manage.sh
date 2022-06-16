@@ -16,9 +16,10 @@ apps=(
     "nextcloud-collabora"
     "nginx-static"
     #"nitter"
+    "plexmediaserver"
+    "transmission-openvpn"
     "wallabag"
     "wekan"
-    "plexmediaserver"
     # always put the proxy last
     "nginx-letsencrypt-proxy"
 )
