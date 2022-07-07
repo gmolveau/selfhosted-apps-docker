@@ -7,7 +7,7 @@ services:
     image: haugene/transmission-openvpn
     cap_add:
       - NET_ADMIN
-    restart: on-failure:5
+    restart: always
     environment:
       # General
       - TZ=Europe/Paris
