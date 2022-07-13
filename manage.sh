@@ -48,8 +48,8 @@ function down() {
 
 function print_usage() {
     echo "Usage :"
-    echo "    manage.sh update"
-    echo "    manage.sh stop"
+    echo "    $0 up"
+    echo "    $0 stop"
 }
 
 if (($# < 1)); then
