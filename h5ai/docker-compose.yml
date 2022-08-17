@@ -1,0 +1,29 @@
+version: "3.5"
+
+services:
+  h5ai:
+    container_name: h5ai
+    hostname: h5ai
+    image: awesometic/h5ai
+    restart: on-failure:5
+    expose:
+      - 80
+    environment:
+      # general
+      - TZ=Europe/Paris
+      # nginx + letsencrypt
+      - VIRTUAL_PORT=80
+      - VIRTUAL_HOST=${APP_DOMAIN}
+      - LETSENCRYPT_HOST=${APP_DOMAIN}
+      # app
+      - HTPASSWD=${HTPASSWD}
+      - HTPASSWD_USER=${BASIC_AUTH_USERNAME}
+      - HTPASSWD_PW=${BASIC_AUTH_PASSWORD}
+    networks:
+      - proxy
+    volumes:
+      - ${HOME}/files:/h5ai:ro
+
+networks:
+  proxy:
+    external: true
