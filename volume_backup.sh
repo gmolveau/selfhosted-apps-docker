@@ -7,13 +7,13 @@ set -o pipefail
 # $ screen -S dockerbackup
 # $ DEST="/media/usb/volumes_backup_$(date +'%Y%m%d')"
 # $ sudo mkdir -p "$DEST"
-# $ for v in bitwarden_data freshrss_data nextcloud_data nextcloud_db plex_config wallabag_data wallabag_images wekan_db wekan_db_dump; do bash volume_backup.sh backup "$v" "$DEST"; done
+# $ for v in bitwarden_data freshrss_data nextcloud_data nextcloud_db nginx_certs nginx_conf.d nginx_htpasswd nginx_vhost.d nginx_html nginx_dhparam plex_config wallabag_data wallabag_images wekan_db wekan_db_dump; do bash volume_backup.sh backup "$v" "$DEST"; done
 # $ sudo tar cf "${DEST}/selfhosted-apps-docker.tar" -C ~ selfhosted-apps-docker
 
 ### multiple restore
 # $ screen -S dockerrestore
 # $ DEST="/media/usb/volumes_backup_XXXX"
-# $ for v in bitwarden_data freshrss_data nextcloud_data nextcloud_db plex_config wallabag_data wallabag_images wekan_db wekan_db_dump; do docker volume create "$v" && bash volume_backup.sh restore "$v" $(ls -Art "${DEST}/${v}"* | tail -n 1); done
+# $ for v in bitwarden_data freshrss_data nextcloud_data nextcloud_db nginx_certs nginx_conf.d nginx_htpasswd nginx_vhost.d nginx_html nginx_dhparam plex_config wallabag_data wallabag_images wekan_db wekan_db_dump; do docker volume create "$v" && bash volume_backup.sh restore "$v" $(ls -Art "${DEST}/${v}"* | tail -n 1); done
 
 # references :
 # - https://medium.com/@loomchild/backup-restore-docker-named-volumes-350397b8e362 (https://web.archive.org/web/20210408185936/https://jareklipski.medium.com/backup-restore-docker-named-volumes-350397b8e362)
