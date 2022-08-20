@@ -29,9 +29,7 @@ services:
     dns:
       - 1.1.1.1
     volumes:
-      - /etc/localtime:/etc/localtime:ro
       - ~/files:/data
-      - transmission_config:/config
       #- server.ovpn:/etc/openvpn/custom/default.ovpn
     networks:
       - transmission_network
@@ -48,8 +46,6 @@ services:
       - VIRTUAL_PORT=8080
       - VIRTUAL_HOST=${APP_DOMAIN}
       - LETSENCRYPT_HOST=${APP_DOMAIN}
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
     networks:
       - proxy
       - transmission_network
@@ -59,7 +55,3 @@ networks:
     name: transmission_network
   proxy:
     external: true
-
-volumes:
-  transmission_config:
-    name: transmission_config
