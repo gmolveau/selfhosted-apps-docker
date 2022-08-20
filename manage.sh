@@ -31,7 +31,7 @@ function up() {
             cd "${app}" \
                 && ${DOCKERCOMPOSE} pull \
                 && ${DOCKERCOMPOSE} build --pull --force-rm --no-cache \
-                && ${DOCKERCOMPOSE} up --force-recreate -d
+                && ${DOCKERCOMPOSE} up --build --force-recreate -d
         )
     done
     docker system prune -f
