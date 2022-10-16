@@ -14,7 +14,7 @@ apps=(
     #"bitwarden"
     "freshrss"
     "nextcloud-collabora"
-    #"nginx-static"
+    "nginx-static"
     "h5ai"
     #"nitter"
     "plexmediaserver"
