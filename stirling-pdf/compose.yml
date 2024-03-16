@@ -1,0 +1,26 @@
+version: "3.5"
+
+services:
+  stirling_pdf:
+    container_name: stirling_pdf
+    hostname: stirling_pdf
+    image: frooodle/s-pdf:latest
+    restart: on-failure:5
+    environment:
+      # General
+      - TZ=Europe/Paris
+      # nginx + letsencrypt
+      - VIRTUAL_PORT=8080
+      - VIRTUAL_HOST=${APP_DOMAIN}
+      - LETSENCRYPT_HOST=${APP_DOMAIN}
+      # app
+      - DOCKER_ENABLE_SECURITY=true
+      - SECURITY_ENABLE_LOGIN=true
+      - SECURITY_INITIALLOGIN_USERNAME=${SECURITY_INITIALLOGIN_USERNAME}
+      - SECURITY_INITIALLOGIN_PASSWORD=${SECURITY_INITIALLOGIN_PASSWORD}
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
