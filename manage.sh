@@ -19,6 +19,8 @@ apps=(
     #"nitter"
     "plexmediaserver"
     "transmission-openvpn"
+    "it-tools"
+    "stirling-pdf"
     "wallabag"
     "wekan"
     # always put the proxy last
