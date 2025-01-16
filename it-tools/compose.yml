@@ -4,7 +4,7 @@ services:
   it_tools:
     container_name: it_tools
     hostname: it_tools
-    image: corentinth/it-tools:latest
+    image: corentinth/it-tools:2024.10.22-7ca5933
     restart: on-failure:5
     environment:
       # General
