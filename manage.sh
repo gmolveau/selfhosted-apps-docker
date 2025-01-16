@@ -11,18 +11,17 @@ if ! command -v ${DOCKERCOMPOSE} &> /dev/null; then
 fi
 
 apps=(
-    #"bitwarden"
     "freshrss"
+    "gluetun"
+    "h5ai"
+    "it-tools"
+    "plexmediaserver"
     "nextcloud-collabora"
     "nginx-static"
-    "h5ai"
-    #"nitter"
     "plexmediaserver"
-    "transmission-openvpn"
-    "it-tools"
     "stirling-pdf"
+    "transmission-openvpn"
     "wallabag"
-    "wekan"
     # always put the proxy last
     "nginx-letsencrypt-proxy"
 )
