@@ -1,13 +1,13 @@
 # README : https://github.com/wallabag/docker
 # MIGRATION : docker exec -t wallabag /var/www/wallabag/bin/console doctrine:migrations:migrate --env=prod --no-interaction
 # INSTALL : default admin user is wallabag/wallabag (add another user and deactivate this account)
-version: '3.5'
+version: "3.5"
 
 services:
   wallabag:
     container_name: wallabag
     hostname: wallabag
-    image: wallabag/wallabag
+    image: wallabag/wallabag:2.6.10
     restart: on-failure:5
     expose:
       - 80
