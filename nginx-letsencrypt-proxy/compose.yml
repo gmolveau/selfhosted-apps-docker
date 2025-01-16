@@ -1,7 +1,6 @@
-version: '3.5'
+version: "3.5"
 
 services:
-
   nginx_proxy:
     container_name: nginx_proxy
     build:
@@ -25,7 +24,7 @@ services:
       - proxy
 
   acme_companion:
-    image: nginxproxy/acme-companion
+    image: nginxproxy/acme-companion:2.5.1
     container_name: nginx_proxy_acme
     restart: on-failure:5
     environment:
