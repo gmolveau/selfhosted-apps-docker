@@ -1,7 +1,6 @@
-version: '3.5'
+version: "3.5"
 
 services:
-
   nextcloud_db:
     container_name: nextcloud_db
     hostname: nextcloud_db
@@ -48,7 +47,7 @@ services:
   collabora:
     container_name: collabora
     hostname: collabora
-    image: collabora/code
+    image: collabora/code:24.04.11.3.1
     restart: on-failure:5
     depends_on:
       - nextcloud_app
@@ -80,7 +79,6 @@ networks:
     external: true
   nextcloud:
     name: nextcloud
-
 ### FAQ
 ## nextcloud client "grant access" hangs forever :
 # https://help.nextcloud.com/t/connection-wizard-is-looping-between-log-in-and-grant-access/46809/6
