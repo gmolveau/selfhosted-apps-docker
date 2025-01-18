@@ -1,4 +1,5 @@
 version: "3"
+
 services:
   gluetun:
     image: qmcgaw/gluetun:v3.40.0
@@ -11,6 +12,8 @@ services:
     volumes:
       - gluetun:/gluetun
     environment:
+      - HTTPPROXY=on
+      - HTTPPROXY_STEALTH=off
       - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
       # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
       - VPN_TYPE=wireguard
@@ -23,7 +26,13 @@ services:
       # Server list updater
       # See https://github.com/qdm12/gluetun-wiki/blob/main/setup/servers.md#update-the-vpn-servers-list
       - UPDATER_PERIOD=24h
+    networks:
+      - vpn
 
 volumes:
   gluetun:
     name: gluetun
+
+networks:
+  vpn:
+    driver: bridge
