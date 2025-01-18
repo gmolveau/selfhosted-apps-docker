@@ -1,0 +1,25 @@
+version: "3.5"
+
+services:
+  transmission:
+    container_name: transmission
+    hostname: transmission
+    image: linuxserver/transmission:4.0.6
+    restart: always
+    environment:
+      # General
+      - TZ=Europe/Paris
+      # NGINX + LETSENCRYPT
+      - VIRTUAL_PORT=9091
+      - VIRTUAL_HOST=${APP_DOMAIN}
+      - LETSENCRYPT_HOST=${APP_DOMAIN}
+      # APP
+      - USER=${WEBUI_USER}
+      - PASS=${WEBUI_PASS}
+    network_mode: "container:gluetun"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
