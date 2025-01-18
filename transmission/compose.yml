@@ -29,6 +29,10 @@ services:
       - proxy
       - vpn
 
+volumes:
+  transmission_config:
+    name: transmission_config
+
 networks:
   proxy:
     external: true
