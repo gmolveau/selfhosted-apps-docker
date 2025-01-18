@@ -12,17 +12,21 @@ services:
     volumes:
       - gluetun:/gluetun
     environment:
-      - HTTPPROXY=on
-      - HTTPPROXY_STEALTH=off
+      # General
+      - TZ=Europe/Paris
+      # App
+      - HTTPPROXY=${HTTPPROXY:-on}
+      # HTTPPROXY exposed on port 8888 by default
+      - HTTPPROXY_STEALTH=${HTTPPROXY_STEALTH:-off}
+      - HTTPPROXY_LOG=${HTTPPROXY_LOG:-off}
       - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
       # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
       - VPN_TYPE=wireguard
-      # Wireguard:
       - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
       # See https://github.com/qdm12/gluetun-wiki/issues/15
       - SERVER_COUNTRIES=${SERVER_COUNTRIES}
+      - SERVER_CATEGORIES=${SERVER_CATEGORIES}
       # Timezone for accurate log times
-      - TZ=Europe/Paris
       # Server list updater
       # See https://github.com/qdm12/gluetun-wiki/blob/main/setup/servers.md#update-the-vpn-servers-list
       - UPDATER_PERIOD=24h
