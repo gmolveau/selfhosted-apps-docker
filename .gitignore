@@ -2,7 +2,6 @@
 venv/
 .venv/
 npm_modules/
-config
-!config/.gitkeep
-data
-!data/.gitkeep
+config/
+data/
+!.gitkeep

@@ -12,11 +12,11 @@ List of webuis : combustion, kettu, transmission-web-control, flood-for-transmis
 
 ```bash
 # jq and curl are required
-mkdir -p config/ui/transmission-web-control
-curl -sL $(curl -s https://api.github.com/repos/ronggang/transmission-web-control/releases/latest | jq --raw-output '.tarball_url') | tar -C ./config/ui/transmission-web-control --strip-components=2 -xz
+mkdir -p config/transmission-web-control
+curl -sL $(curl -s https://api.github.com/repos/ronggang/transmission-web-control/releases/latest | jq --raw-output '.tarball_url') | tar -C ./config/transmission-web-control --strip-components=2 -xz
 ```
 
-add the folder as a volume in the compose and set TRANSMISSION_WEB_HOME to the inside path `/config/XXX`
+- set the env var `TRANSMISSION_WEB_HOME` to the inside path `/config/transmission-web-control`
 
 ## Test your torrent IP
 
