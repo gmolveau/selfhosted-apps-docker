@@ -8,16 +8,23 @@ services:
     environment:
       # General
       - TZ=Europe/Paris
+      - PUID=${PUID:-1000}
+      - PGID=${PUID:-1000}
       # NGINX + LETSENCRYPT
       - VIRTUAL_PORT=9091
       - VIRTUAL_HOST=${APP_DOMAIN}
       - LETSENCRYPT_HOST=${APP_DOMAIN}
       # APP
+      - TRANSMISSION_WEB_HOME=${TRANSMISSION_WEB_HOME}
       - USER=${WEBUI_USER}
       - PASS=${WEBUI_PASS}
       # VPN
       - http_proxy=http://gluetun:8888
       - https_proxy=http://gluetun:8888
+    volumes:
+      - transmission_config:/config
+      # - /path/to/downloads:/downloads
+      # - /path/to/watch/folder:/watch
     networks:
       - proxy
       - vpn
