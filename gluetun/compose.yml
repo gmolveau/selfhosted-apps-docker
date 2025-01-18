@@ -26,7 +26,7 @@ services:
       # See https://github.com/qdm12/gluetun-wiki/issues/15
       # Nordvpn config
       - SERVER_COUNTRIES=${SERVER_COUNTRIES:-Netherlands}
-      - SERVER_CATEGORIES=${SERVER_CATEGORIES:-legacy_p2p}
+      - SERVER_CATEGORIES=${SERVER_CATEGORIES:-P2P}
       # Server list updater
       # See https://github.com/qdm12/gluetun-wiki/blob/main/setup/servers.md#update-the-vpn-servers-list
       - UPDATER_PERIOD=24h
