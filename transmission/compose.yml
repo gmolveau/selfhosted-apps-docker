@@ -23,6 +23,7 @@ services:
       - https_proxy=http://gluetun:8888
     volumes:
       - transmission_config:/config
+      - ./config/ui:/config/ui
       # - /path/to/downloads:/downloads
       # - /path/to/watch/folder:/watch
     networks:
