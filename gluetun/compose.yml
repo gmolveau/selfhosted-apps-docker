@@ -24,9 +24,9 @@ services:
       - VPN_TYPE=wireguard
       - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
       # See https://github.com/qdm12/gluetun-wiki/issues/15
-      - SERVER_COUNTRIES=${SERVER_COUNTRIES}
-      - SERVER_CATEGORIES=${SERVER_CATEGORIES}
-      # Timezone for accurate log times
+      # Nordvpn config
+      - SERVER_COUNTRIES=${SERVER_COUNTRIES:-Netherlands}
+      - SERVER_CATEGORIES=${SERVER_CATEGORIES:-legacy_p2p}
       # Server list updater
       # See https://github.com/qdm12/gluetun-wiki/blob/main/setup/servers.md#update-the-vpn-servers-list
       - UPDATER_PERIOD=24h
