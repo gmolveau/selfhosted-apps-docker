@@ -3,7 +3,6 @@ version: "3.5"
 services:
   transmission:
     container_name: transmission
-    hostname: transmission
     image: linuxserver/transmission:4.0.6
     restart: always
     environment:
@@ -16,10 +15,15 @@ services:
       # APP
       - USER=${WEBUI_USER}
       - PASS=${WEBUI_PASS}
-    network_mode: "container:gluetun"
+      # VPN
+      - http_proxy=http://gluetun:8888
+      - https_proxy=http://gluetun:8888
     networks:
       - proxy
+      - vpn
 
 networks:
   proxy:
+    external: true
+  vpn:
     external: true
