@@ -15,12 +15,11 @@ apps=(
     "gluetun"
     "h5ai"
     "it-tools"
-    "plexmediaserver"
     "nextcloud-collabora"
     "nginx-static"
     "plexmediaserver"
     "stirling-pdf"
-    "transmission-openvpn"
+    "transmission"
     "wallabag"
     # always put the proxy last
     "nginx-letsencrypt-proxy"
