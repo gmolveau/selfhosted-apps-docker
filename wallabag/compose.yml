@@ -22,16 +22,10 @@ services:
       - SYMFONY__ENV__FROM_EMAIL=${SYMFONY__ENV__FROM_EMAIL}
       - SYMFONY__ENV__DOMAIN_NAME=${SYMFONY__ENV__DOMAIN_NAME}
     volumes:
-      - wallabag_images:/var/www/wallabag/web/assets/images
-      - wallabag_data:/var/www/wallabag/data
+      - ./volumes/wallabag_images:/var/www/wallabag/web/assets/images
+      - ./volumes/wallabag_data:/var/www/wallabag/data
     networks:
       - proxy
-
-volumes:
-  wallabag_images:
-    name: wallabag_images
-  wallabag_data:
-    name: wallabag_data
 
 networks:
   proxy:
