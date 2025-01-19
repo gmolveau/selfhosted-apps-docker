@@ -10,7 +10,7 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
-      - gluetun:/gluetun
+      - ./data:/gluetun
     environment:
       # General
       - TZ=Europe/Paris
@@ -32,10 +32,6 @@ services:
       - UPDATER_PERIOD=24h
     networks:
       - vpn
-
-volumes:
-  gluetun:
-    name: gluetun
 
 networks:
   vpn:
