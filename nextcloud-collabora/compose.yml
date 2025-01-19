@@ -16,7 +16,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
     volumes:
-      - nextcloud_db:/var/lib/mysql
+      - ./data/nextcloud_db:/var/lib/mysql
     networks:
       - nextcloud
 
@@ -39,7 +39,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
     volumes:
-      - nextcloud_data:/var/www/html
+      - ./data/nextcloud_data:/var/www/html
     networks:
       - proxy
       - nextcloud
@@ -67,12 +67,6 @@ services:
       - domain=${NEXTCLOUD_DOMAIN}
     networks:
       - proxy
-
-volumes:
-  nextcloud_db:
-    name: nextcloud_db
-  nextcloud_data:
-    name: nextcloud_data
 
 networks:
   proxy:
