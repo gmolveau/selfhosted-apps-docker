@@ -24,6 +24,7 @@ services:
     volumes:
       - ~/files:/h5ai:ro
       - ./options.json:/config/_h5ai/private/conf/options.json
+      - ./volumes/config:/config
 
 networks:
   proxy:
