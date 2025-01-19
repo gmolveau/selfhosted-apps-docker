@@ -10,7 +10,7 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     volumes:
-      - ./data:/gluetun
+      - ./volumes/data:/gluetun
     environment:
       # General
       - TZ=Europe/Paris
