@@ -13,12 +13,12 @@ services:
     labels:
       com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
     volumes:
-      - nginx_conf.d:/etc/nginx/conf.d
-      - nginx_certs:/etc/nginx/certs:ro
-      - nginx_vhost.d:/etc/nginx/vhost.d
-      - nginx_dhparam:/etc/nginx/dhparam
-      - nginx_htpasswd:/etc/nginx/htpasswd:ro
-      - nginx_html:/usr/share/nginx/html
+      - ./volumes/nginx_conf.d:/etc/nginx/conf.d
+      - ./volumes/nginx_certs:/etc/nginx/certs:ro
+      - ./volumes/nginx_vhost.d:/etc/nginx/vhost.d
+      - ./volumes/nginx_dhparam:/etc/nginx/dhparam
+      - ./volumes/nginx_htpasswd:/etc/nginx/htpasswd:ro
+      - ./volumes/nginx_html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro # NOTE, this container has access to docker socket (this is like root)
     networks:
       - proxy
@@ -33,30 +33,14 @@ services:
     depends_on:
       - nginx_proxy
     volumes:
-      - nginx_conf.d:/etc/nginx/conf.d
-      - nginx_certs:/etc/nginx/certs:rw
-      - nginx_vhost.d:/etc/nginx/vhost.d
-      - nginx_html:/usr/share/nginx/html
-      - acme:/etc/acme.sh
+      - ./volumes/nginx_conf.d:/etc/nginx/conf.d
+      - ./volumes/nginx_certs:/etc/nginx/certs:rw
+      - ./volumes/nginx_vhost.d:/etc/nginx/vhost.d
+      - ./volumes/nginx_html:/usr/share/nginx/html
+      - ./volumes/acme:/etc/acme.sh
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - proxy
-
-volumes:
-  nginx_certs:
-    name: nginx_certs
-  nginx_conf.d:
-    name: nginx_conf.d
-  nginx_htpasswd:
-    name: nginx_htpasswd
-  nginx_vhost.d:
-    name: nginx_vhost.d
-  nginx_html:
-    name: nginx_html
-  nginx_dhparam:
-    name: nginx_dhparam
-  acme:
-    name: acme
 
 networks:
   proxy:
