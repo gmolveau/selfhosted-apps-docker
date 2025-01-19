@@ -22,7 +22,7 @@ services:
     devices:
       - "/dev/dri:/dev/dri"
     volumes:
-      - ./config:/config # plex database
+      - ./volumes/config:/config # plex database
       - ~/files:/data # library
 
 networks:
