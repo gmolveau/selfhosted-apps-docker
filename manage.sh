@@ -4,12 +4,6 @@ set -o errexit # set -e
 set -o nounset # set -u
 set -o pipefail
 
-# check which "docker compose" flavour to use
-DOCKERCOMPOSE="docker compose"
-if ! command -v ${DOCKERCOMPOSE} &> /dev/null; then
-    DOCKERCOMPOSE="docker-compose"
-fi
-
 apps=(
     "freshrss"
     "gluetun"
@@ -29,9 +23,9 @@ function up() {
     for app in "${apps[@]}"; do
         (
             cd "${app}" \
-                && ${DOCKERCOMPOSE} pull \
-                && ${DOCKERCOMPOSE} build --pull --force-rm --no-cache \
-                && ${DOCKERCOMPOSE} up --build --force-recreate -d
+                && docker compose pull \
+                && docker compose build --pull --force-rm --no-cache \
+                && docker compose up --build --force-recreate -d
         )
     done
     docker system prune -f
@@ -41,7 +35,7 @@ function down() {
     for app in "${apps[@]}"; do
         (
             cd "${app}" \
-                && ${DOCKERCOMPOSE} down
+                && docker compose down
         )
     done
     docker system prune -f
