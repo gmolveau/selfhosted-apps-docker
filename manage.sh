@@ -4,23 +4,23 @@ set -o errexit # set -e
 set -o nounset # set -u
 set -o pipefail
 
-apps=(
+UP_APPS=(
     "freshrss"
-    "gluetun"
+    "gluetun"      # gluetun before transmission
+    "transmission" # transmission depends_on gluetun
     "h5ai"
     "it-tools"
     "nextcloud-collabora"
     "nginx-static"
     "plexmediaserver"
     "stirling-pdf"
-    "transmission"
     "wallabag"
-    # always put the proxy last
+    # nginx-proxy in last
     "nginx-letsencrypt-proxy"
 )
 
 function up() {
-    for app in "${apps[@]}"; do
+    for app in "${UP_APPS[@]}"; do
         (
             cd "${app}" \
                 && docker compose pull \
@@ -31,8 +31,23 @@ function up() {
     docker system prune -f
 }
 
+DOWN_APPS=(
+    "freshrss"
+    "transmission" # transmission depends_on gluetun
+    "gluetun"
+    "h5ai"
+    "it-tools"
+    "nextcloud-collabora"
+    "nginx-static"
+    "plexmediaserver"
+    "stirling-pdf"
+    "wallabag"
+    # nginx proxy in last
+    "nginx-letsencrypt-proxy"
+)
+
 function down() {
-    for app in "${apps[@]}"; do
+    for app in "${DOWN_APPS[@]}"; do
         (
             cd "${app}" \
                 && docker compose down
