@@ -5,9 +5,10 @@ set -o nounset # set -u
 set -o pipefail
 
 UP_APPS=(
+    "nginx-letsencrypt-proxy" # nginx proxy is required by all
     "freshrss"
-    "gluetun"      # gluetun before transmission
-    "transmission" # transmission depends_on gluetun
+    "gluetun" # gluetun is required by transmission
+    "transmission"
     "h5ai"
     "it-tools"
     "nextcloud-collabora"
@@ -15,8 +16,6 @@ UP_APPS=(
     "plexmediaserver"
     "stirling-pdf"
     "wallabag"
-    # nginx-proxy in last
-    "nginx-letsencrypt-proxy"
 )
 
 function up() {
