@@ -22,7 +22,7 @@ services:
     networks:
       - proxy
     volumes:
-      - ~/torrents:/h5ai:ro
+      - ~/files:/h5ai:ro
       - ./options.json:/config/_h5ai/private/conf/options.json
 
 networks:
