@@ -1,4 +1,4 @@
-version: '3.5'
+version: "3.5"
 
 services:
   freshrss:
@@ -18,15 +18,11 @@ services:
       # app
       - CRON_MIN=*/10
     volumes:
-      - freshrss_data:/config
+      - ./config:/config
     expose:
       - 80
     networks:
       - proxy
-
-volumes:
-  freshrss_data:
-    name: freshrss_data
 
 networks:
   proxy:
