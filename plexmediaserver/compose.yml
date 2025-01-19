@@ -23,6 +23,7 @@ services:
       - "/dev/dri:/dev/dri"
     volumes:
       - ./volumes/config:/config # plex database
+      - ./volumes/transcode:/transcode # plex transcode
       - ~/files:/data # library
 
 networks:
