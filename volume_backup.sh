@@ -3,6 +3,8 @@ set -o errexit # set -e
 set -o nounset # set -u
 set -o pipefail
 
+# reference : https://www.teosoft.it/post/2019-02-18-nextcloud-docker-backup-and-update/ [archive.org](https://web.archive.org/web/20210408185513/https://www.teosoft.it/post/2019-02-18-nextcloud-docker-backup-and-update/)
+
 ### multiple backup
 # $ screen -S dockerbackup
 # $ DEST="/media/usb/volumes_backup_$(date +'%Y%m%d')"
