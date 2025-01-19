@@ -2,6 +2,5 @@
 venv/
 .venv/
 npm_modules/
-config/
-data/
+volumes/
 !.gitkeep
