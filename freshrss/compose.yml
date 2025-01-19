@@ -18,7 +18,7 @@ services:
       # app
       - CRON_MIN=*/10
     volumes:
-      - ./config:/config
+      - ./volumes/config:/config
     expose:
       - 80
     networks:
