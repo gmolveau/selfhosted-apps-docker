@@ -22,12 +22,8 @@ services:
     devices:
       - "/dev/dri:/dev/dri"
     volumes:
-      - plex_config:/config # plex database
+      - ./config:/config # plex database
       - ~/files:/data # library
-
-volumes:
-  plex_config:
-    name: plex_config
 
 networks:
   proxy:
