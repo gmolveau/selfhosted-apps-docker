@@ -12,8 +12,8 @@ List of webuis : combustion, kettu, transmission-web-control, flood-for-transmis
 
 ```bash
 # jq and curl are required
-mkdir -p config/transmission-web-control
-curl -sL $(curl -s https://api.github.com/repos/ronggang/transmission-web-control/releases/latest | jq --raw-output '.tarball_url') | tar -C ./config/transmission-web-control --strip-components=2 -xz
+mkdir -p volumes/config/transmission-web-control
+curl -sL $(curl -s https://api.github.com/repos/ronggang/transmission-web-control/releases/latest | jq --raw-output '.tarball_url') | tar -C ./volumes/config/transmission-web-control --strip-components=2 -xz
 ```
 
 - set the env var `TRANSMISSION_WEB_HOME` to the inside path `/config/transmission-web-control`
