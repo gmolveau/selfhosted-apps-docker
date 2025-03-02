@@ -1,0 +1,27 @@
+version: "3.5"
+
+services:
+  filebrowser:
+    container_name: filebrowser
+    hostname: filebrowser
+    image: filebrowser/filebrowser:s6
+    restart: on-failure:5
+    environment:
+      # GENERAL
+      - TZ=Europe/Paris
+      - PUID=${PUID:-1000}
+      - PGID=${PUID:-1000}
+      # NGINX + LETSENCRYPT
+      - VIRTUAL_PORT=80
+      - VIRTUAL_HOST=${APP_DOMAIN}
+      - LETSENCRYPT_HOST=${APP_DOMAIN}
+      # APP
+    volumes:
+      - ~/files:/srv
+      - ./volumes/database:/database/
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
