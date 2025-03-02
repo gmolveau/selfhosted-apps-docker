@@ -6,6 +6,7 @@ set -o pipefail
 
 UP_APPS=(
     "nginx-letsencrypt-proxy" # nginx proxy is required by all
+    "filebrowser"
     "freshrss"
     "gluetun" # gluetun is required by transmission
     "transmission"
@@ -31,6 +32,7 @@ function up() {
 }
 
 DOWN_APPS=(
+    "filebrowser"
     "freshrss"
     "transmission" # transmission depends_on gluetun
     "gluetun"
