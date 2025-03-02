@@ -4,6 +4,8 @@
 
 Connected through a VPN via the [Gluetun](https://github.com/qdm12/gluetun-wiki/blob/main/setup/connect-a-container-to-gluetun.md) container
 
+- Rename `example.env` to `.env` and edit the variables
+
 ## Install a webui
 
 List of webuis : combustion, kettu, transmission-web-control, flood-for-transmission, shift, transmissionic
