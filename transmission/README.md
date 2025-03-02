@@ -6,9 +6,9 @@ Connected through a VPN via the [Gluetun](https://github.com/qdm12/gluetun-wiki/
 
 ## Install a webui
 
-### transmission-web-control
-
 List of webuis : combustion, kettu, transmission-web-control, flood-for-transmission, shift, transmissionic
+
+### transmission-web-control
 
 ```bash
 # jq and curl are required
