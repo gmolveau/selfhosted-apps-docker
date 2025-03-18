@@ -3,7 +3,7 @@ version: "3.5"
 services:
   transmission:
     container_name: transmission
-    image: linuxserver/transmission:4.0.6
+    image: linuxserver/transmission:2021.11.18
     restart: always
     environment:
       # General
