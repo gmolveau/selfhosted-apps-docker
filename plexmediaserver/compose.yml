@@ -3,7 +3,7 @@ version: "3.5"
 services:
   plex:
     container_name: plex
-    image: plexinc/pms-docker:1.41.3.9314-a0bfb8370
+    image: plexinc/pms-docker:1.41.7.9799-5bce000f7
     hostname: ${APP_DOMAIN}
     restart: on-failure:5
     environment:
@@ -19,13 +19,33 @@ services:
       - "32400:32400/tcp"
     networks:
       - proxy
+      - plex
     devices:
       - "/dev/dri:/dev/dri"
     volumes:
       - ./volumes/config:/config # plex database
       - ./volumes/transcode:/transcode # plex transcode
-      - ~/files:/data # library
+      - ~/files/movies:/data/movies
+      - ~/files/series:/data/series
+      - ~/files/music:/data/music
+      - ~/files/videos:/data/videos
+      - ~/files/photos:/data/photos
+
+  # threadfin:
+  #   hostname: threadfin
+  #   image: fyb3roptik/threadfin:1.2.32
+  #   restart: on-failure:5
+  #   ports:
+  #     - 127.0.0.1:34400:34400
+  #   environment:
+  #     # General
+  #     - TZ=Europe/Paris
+  #   volumes:
+  #     - ./volumes/threadfin:/home/threadfin/conf
+  #   networks:
+  #     - plex
 
 networks:
   proxy:
     external: true
+  plex:
