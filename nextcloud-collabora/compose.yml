@@ -4,7 +4,7 @@ services:
   nextcloud_db:
     container_name: nextcloud_db
     hostname: nextcloud_db
-    image: mariadb:10.11
+    image: mariadb:11.8
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-read-only-compressed=OFF --skip-innodb-read-only-compressed
     restart: on-failure:5
     environment:
