@@ -4,7 +4,7 @@ services:
   stirling_pdf:
     container_name: stirling_pdf
     hostname: stirling_pdf
-    image: frooodle/s-pdf:0.46.2-fat
+    image: frooodle/s-pdf:1.0.0-fat
     restart: on-failure:5
     environment:
       # General
