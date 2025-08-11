@@ -5,6 +5,12 @@ services:
     container_name: stirling_pdf
     hostname: stirling_pdf
     image: frooodle/s-pdf:1.2.0-fat
+    cpu_count: 2
+    mem_limit: 500M
+    memswap_limit: 500M
+    shm_size: 128mb
+    cap_drop:
+      - ALL
     restart: on-failure:5
     environment:
       # General
