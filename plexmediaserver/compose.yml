@@ -3,7 +3,7 @@ version: "3.5"
 services:
   plex:
     container_name: plex
-    image: plexinc/pms-docker:1.41.7.9799-5bce000f7
+    image: plexinc/pms-docker:1.42.1.10060-4e8b05daf
     hostname: ${APP_DOMAIN}
     restart: on-failure:5
     environment:
