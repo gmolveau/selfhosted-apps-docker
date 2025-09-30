@@ -23,7 +23,7 @@ services:
   nextcloud_app:
     container_name: nextcloud_app
     hostname: nextcloud_app
-    image: nextcloud:31-apache
+    image: nextcloud:32-apache
     restart: on-failure:5
     depends_on:
       - nextcloud_db
