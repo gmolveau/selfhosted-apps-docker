@@ -4,7 +4,7 @@ services:
   stirling_pdf:
     container_name: stirling_pdf
     hostname: stirling_pdf
-    image: frooodle/s-pdf:1.3.2-fat
+    image: frooodle/s-pdf:1.4.0-fat
     cpu_count: 2
     mem_limit: 500M
     memswap_limit: 500M
