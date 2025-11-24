@@ -24,7 +24,7 @@ services:
       - proxy
 
   acme_companion:
-    image: nginxproxy/acme-companion:2.6.1
+    image: nginxproxy/acme-companion:2.6.2
     container_name: nginx_proxy_acme
     restart: on-failure:5
     environment:
