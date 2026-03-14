@@ -60,7 +60,7 @@ function down() {
 function print_usage() {
     echo "Usage :"
     echo "    $0 up"
-    echo "    $0 stop"
+    echo "    $0 down"
 }
 
 if (($# < 1)); then
