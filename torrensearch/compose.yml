@@ -3,7 +3,7 @@ version: "3.5"
 services:
   torrensearch:
     container_name: torrensearch
-    image: ghcr.io/gmolveau/torrensearch-web:1.0.0
+    image: ghcr.io/gmolveau/torrensearch-web:2.0.0
     restart: always
     environment:
       # General
