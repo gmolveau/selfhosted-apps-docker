@@ -1,7 +1,7 @@
 version: "3.5"
 
 services:
-  transmission:
+  torrensearch:
     container_name: torrensearch
     image: ghcr.io/gmolveau/torrensearch-web:1.0.0
     restart: always
