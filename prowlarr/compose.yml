@@ -1,0 +1,74 @@
+version: "3.5"
+
+services:
+  prowlarr:
+    container_name: prowlarr
+    image: ghcr.io/home-operations/prowlarr:2.3.6.5351@sha256:da6b1f914ad22778c347d554a59b6e40110f654b40528c8de516616382db5148
+    restart: always
+    cpu_count: 4
+    mem_limit: 3G
+    memswap_limit: 3G
+    read_only: true
+    cap_drop:
+      - ALL
+    user: ${PUID:?}:${PGID:?}
+    tmpfs:
+      - /tmp:mode=770,noexec,size=10M,uid=${PUID:?},gid=${PGID:?}
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - --quiet
+        - --timeout=3
+        - --tries=1
+        - --spider
+        - http://localhost:9696/ping
+      interval: 10s
+      timeout: 5s
+      retries: 8
+      start_period: 15s
+    environment:
+      # General
+      - TZ=Europe/Paris
+      - PUID=${PUID:?}
+      - PGID=${PUID:?}
+      # NGINX + LETSENCRYPT
+      - VIRTUAL_PORT=9091
+      - VIRTUAL_HOST=${APP_DOMAIN:?}
+      - LETSENCRYPT_HOST=${APP_DOMAIN:?}
+      # APP
+      # VPN
+      - http_proxy=http://gluetun:8888
+      - https_proxy=http://gluetun:8888
+    volumes:
+      - ./volumes/config:/config
+      - ./volumes/blackhole:/blackhole
+    networks:
+      - proxy
+      - vpn
+
+  flaresolverr:
+    container_name: prowlarr
+    restart: always
+    image: ghcr.io/flaresolverr/flaresolverr:v3.4.6@sha256:7962759d99d7e125e108e0f5e7f3cdbcd36161776d058d1d9b7153b92ef1af9e
+    user: ${PUID:?}:${PGID:?}
+    cpu_count: 4
+    mem_limit: 6G
+    memswap_limit: 6G
+    environment:
+      # General
+      - TZ=Europe/Paris
+      # APP
+      # VPN
+      - http_proxy=http://gluetun:8888
+      - https_proxy=http://gluetun:8888
+    cap_drop:
+      - ALL
+    networks:
+      - vpn
+
+networks:
+  proxy:
+    external: true
+  vpn:
+    external: true

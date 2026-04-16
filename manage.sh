@@ -8,9 +8,11 @@ UP_APPS=(
     "nginx-letsencrypt-proxy" # nginx proxy is required by all
     "filebrowser"
     "freshrss"
-    "gluetun" # gluetun is required by transmission
-    "transmission"
-    "torrensearch"
+    "gluetun"
+    "prowlarr" # depends_on gluetun
+    "transmission" # depends_on gluetun
+    "torrensearch" # depends_on gluetun
+    "seer"
     "h5ai"
     "it-tools"
     "nextcloud-collabora"
@@ -35,8 +37,10 @@ function up() {
 DOWN_APPS=(
     "filebrowser"
     "freshrss"
-    "torrensearch"
-    "transmission" # transmission depends_on gluetun
+    "seer"
+    "torrensearch" # depends_on gluetun
+    "prowlarr" # depends_on gluetun
+    "transmission" # depends_on gluetun
     "gluetun"
     "h5ai"
     "it-tools"
