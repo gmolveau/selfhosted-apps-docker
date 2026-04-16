@@ -39,7 +39,7 @@ services:
       retries: 4
       start_period: 5s
     volumes:
-      - ./volumes/config:/config
+      - ./volumes/config:/app/config
     networks:
       - proxy
       - arr
