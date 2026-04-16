@@ -2,6 +2,4 @@
 venv/
 .venv/
 npm_modules/
-volumes/
-!.gitkeep
 TODO

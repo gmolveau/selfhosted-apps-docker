@@ -10,6 +10,7 @@ UP_APPS=(
     "freshrss"
     "gluetun" # gluetun is required by transmission
     "transmission"
+    "torrensearch"
     "h5ai"
     "it-tools"
     "nextcloud-collabora"
@@ -34,6 +35,7 @@ function up() {
 DOWN_APPS=(
     "filebrowser"
     "freshrss"
+    "torrensearch"
     "transmission" # transmission depends_on gluetun
     "gluetun"
     "h5ai"
