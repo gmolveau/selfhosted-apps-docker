@@ -20,6 +20,7 @@ services:
     networks:
       - proxy
       - plex
+      - arr
     devices:
       - "/dev/dri:/dev/dri"
     volumes:
@@ -49,3 +50,6 @@ networks:
   proxy:
     external: true
   plex:
+    name: plex
+  arr:
+    external: true
