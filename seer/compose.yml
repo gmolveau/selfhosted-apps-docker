@@ -14,7 +14,7 @@ services:
       - ALL
     read_only: true
     tmpfs:
-      - /tmp:mode=770,noexec,size=50M,uid=${PUID:?},gid=${PGID"?}
+      - /tmp:mode=770,noexec,size=50M,uid=${PUID:?},gid=${PGID:?}
     environment:
       # General
       - TZ=Europe/Paris
