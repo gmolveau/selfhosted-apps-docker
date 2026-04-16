@@ -23,8 +23,11 @@ services:
     networks:
       - proxy
       - vpn
+      - arr
 
 networks:
+  arr:
+    external: true
   proxy:
     external: true
   vpn:
