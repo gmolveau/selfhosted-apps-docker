@@ -9,6 +9,8 @@ UP_APPS=(
     "filebrowser"
     "freshrss"
     "gluetun"
+    "sonarr"
+    "radarr"
     "prowlarr" # depends_on gluetun
     "transmission" # depends_on gluetun
     "torrensearch" # depends_on gluetun
@@ -39,6 +41,8 @@ DOWN_APPS=(
     "freshrss"
     "seer"
     "torrensearch" # depends_on gluetun
+    "sonarr"
+    "radarr"
     "prowlarr" # depends_on gluetun
     "transmission" # depends_on gluetun
     "gluetun"

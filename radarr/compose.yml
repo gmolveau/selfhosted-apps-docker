@@ -1,0 +1,52 @@
+version: "3.5"
+
+services:
+  radarr:
+    container_name: radarr
+    image: ghcr.io/home-operations/radarr:6.1.2.10359@sha256:9967e56263a3c67eeaede5824103ee4c1c1f1511abd5965ac1e294bfd9b76dbb
+    cpu_count: 4
+    mem_limit: 2G
+    memswap_limit: 2G
+    read_only: true
+    user: ${PUID:?}:${PGID:?}
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:mode=770,noexec,size=10M,uid=${PUID:?},gid=${PGID:?}
+    volumes:
+      - ./volumes/config:/config
+      - ~/files:/data
+    environment:
+      # General
+      - TZ=Europe/Paris
+      - PUID=${PUID:?}
+      - PGID=${PGID:?}
+      # NGINX + LETSENCRYPT
+      - VIRTUAL_PORT=7878
+      - VIRTUAL_HOST=${APP_DOMAIN:?}
+      - LETSENCRYPT_HOST=${APP_DOMAIN:?}
+      # NOTE: fix for read-only filesystems, see:
+      #       https://stackoverflow.com/questions/74447989/failed-to-create-coreclr-hresult-0x80004005#comment131446515_74447989
+      - COMPlus_EnableDiagnostics="0"
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - --quiet
+        - --timeout=3
+        - --tries=1
+        - --spider
+        - http://localhost:7878/ping
+      interval: 5s
+      timeout: 4s
+      retries: 4
+      start_period: 5s
+    networks:
+      - proxy
+      - arr
+
+networks:
+  proxy:
+    external: true
+  arr:
+    external: true
