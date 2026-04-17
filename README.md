@@ -6,6 +6,19 @@
 - custom nginx-proxy container with increased request body size
 - with a dedicated docker network `proxy`
 
+## *arr stack
+
+- `Prowlarr` — indexer manager; connects to torrent/usenet indexers and feeds them to the other *arrs
+- `Sonarr` — monitors and auto-downloads TV shows
+- `Radarr` — same as Sonarr but for movies
+- `Lidarr` — same concept but for music
+- `Readarr` — same concept but for books/ebooks
+- `Bazarr` — auto-downloads subtitles for your Sonarr/Radarr media
+- `Unpackerr` — watches download folders and extracts archives (.rar etc.) after completion
+- `Transmission` — the actual torrent client that does the downloading
+- `Gluetun` — VPN container that other containers route their traffic through
+- `Plex` — media server that organizes and streams your movies/shows/music to any device
+
 ## Docker compose guidelines example
 
 - `.env` file

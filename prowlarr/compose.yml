@@ -33,7 +33,7 @@ services:
       - PUID=${PUID:?}
       - PGID=${PUID:?}
       # NGINX + LETSENCRYPT
-      - VIRTUAL_PORT=9091
+      - VIRTUAL_PORT=9696
       - VIRTUAL_HOST=${APP_DOMAIN:?}
       - LETSENCRYPT_HOST=${APP_DOMAIN:?}
       # APP
@@ -46,9 +46,10 @@ services:
     networks:
       - proxy
       - vpn
+      - arr
 
   flaresolverr:
-    container_name: prowlarr
+    container_name: flaresolverr
     restart: always
     image: ghcr.io/flaresolverr/flaresolverr:v3.4.6@sha256:7962759d99d7e125e108e0f5e7f3cdbcd36161776d058d1d9b7153b92ef1af9e
     user: ${PUID:?}:${PGID:?}
@@ -71,4 +72,6 @@ networks:
   proxy:
     external: true
   vpn:
+    external: true
+  arr:
     external: true
