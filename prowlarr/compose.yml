@@ -40,7 +40,7 @@ services:
       # VPN
       - http_proxy=http://gluetun:8888
       - https_proxy=http://gluetun:8888
-      - no_proxy=sonarr,radarr,lidarr,readarr,bazarr,unpackerr,localhost,127.0.0.1
+      - no_proxy=flaresolverr,sonarr,radarr,lidarr,readarr,bazarr,unpackerr,localhost,127.0.0.1
     volumes:
       - ./volumes/config:/config
       - ./volumes/blackhole:/blackhole
@@ -64,6 +64,7 @@ services:
       # VPN
       - http_proxy=http://gluetun:8888
       - https_proxy=http://gluetun:8888
+      - no_proxy=prowlarr,sonarr,radarr,lidarr,readarr,bazarr,unpackerr,localhost,127.0.0.1
     cap_drop:
       - ALL
     networks:
