@@ -1,0 +1,54 @@
+version: "3.5"
+
+services:
+  sonarr:
+    image: ghcr.io/home-operations/sonarr:4.0.17.2953@sha256:83607d2b741ec9469db09489e88c473ae6fdf7d85f3b55d4fa809b43e25a2a6c
+    cpu_count: 4
+    mem_limit: 2G
+    memswap_limit: 2G
+    read_only: true
+    user: ${PUID:?}:${PGID:?}
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:mode=770,noexec,size=10M,uid=${PUID:?},gid=${PGID:?}
+    volumes:
+      - ./volumes/config:/config
+      - ~/files:/data
+    environment:
+      # General
+      - TZ=Europe/Paris
+      - PUID=${PUID:?}
+      - PGID=${PGID:?}
+      # NGINX + LETSENCRYPT
+      - VIRTUAL_PORT=8989
+      - VIRTUAL_HOST=${APP_DOMAIN:?}
+      - LETSENCRYPT_HOST=${APP_DOMAIN:?}
+      # NOTE: fix for read-only filesystems, see:
+      #       https://stackoverflow.com/questions/74447989/failed-to-create-coreclr-hresult-0x80004005#comment131446515_74447989
+      - COMPlus_EnableDiagnostics="0"
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - --quiet
+        - --timeout=3
+        - --tries=1
+        - --spider
+        - http://localhost:8989/ping
+      interval: 5s
+      timeout: 4s
+      retries: 4
+      start_period: 5s
+    networks:
+      - proxy
+      - vpn
+      - arr
+
+networks:
+  proxy:
+    external: true
+  vpn:
+    external: true
+  arr:
+    external: true
