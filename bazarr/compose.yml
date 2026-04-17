@@ -1,0 +1,52 @@
+version: "3.5"
+
+services:
+  bazarr:
+    container_name: bazarr
+    image: ghcr.io/home-operations/bazarr:1.5.6@sha256:281a0199110fc02f6a28f32f6b3b1e306126bd2cc9626f9be84b67766d958706
+    cpu_count: 2
+    mem_limit: 500M
+    memswap_limit: 500M
+    read_only: true
+    user: ${PUID:?}:${PGID:?}
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:mode=770,noexec,size=10M,uid=${PUID:?},gid=${PGID:?}
+    volumes:
+      - ./volumes/config:/config
+      - ~/files:/data
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - --quiet
+        - --timeout=3
+        - --tries=1
+        - --spider
+        - http://localhost:6767/ping
+      interval: 5s
+      timeout: 4s
+      retries: 4
+      start_period: 5s
+    environment:
+      # General
+      - TZ=Europe/Paris
+      - PUID=${PUID:?}
+      - PGID=${PGID:?}
+      # NGINX + LETSENCRYPT
+      - VIRTUAL_PORT=6767
+      - VIRTUAL_HOST=${APP_DOMAIN:?}
+      - LETSENCRYPT_HOST=${APP_DOMAIN:?}
+      # NOTE: fix for read-only filesystems, see:
+      #       https://stackoverflow.com/questions/74447989/failed-to-create-coreclr-hresult-0x80004005#comment131446515_74447989
+      - COMPlus_EnableDiagnostics="0"
+    networks:
+      - proxy
+      - arr
+
+networks:
+  proxy:
+    external: true
+  arr:
+    external: true
