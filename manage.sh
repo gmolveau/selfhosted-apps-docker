@@ -13,6 +13,7 @@ UP_APPS=(
     "radarr"
     "lidarr"
     "bazarr"
+    "profilarr"
     "prowlarr" # depends_on gluetun
     "transmission" # depends_on gluetun
     "torrensearch" # depends_on gluetun
@@ -47,6 +48,7 @@ DOWN_APPS=(
     "radarr"
     "lidarr"
     "bazarr"
+    "profilarr"
     "prowlarr" # depends_on gluetun
     "transmission" # depends_on gluetun
     "gluetun"
