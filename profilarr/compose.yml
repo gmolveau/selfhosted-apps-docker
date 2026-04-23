@@ -1,8 +1,8 @@
 version: "3.5"
 
 services:
-  sonarr:
-    container_name: sonarr
+  profilarr:
+    container_name: profilarr
     image: santiagosayshey/profilarr:v1.1.4@sha256:96cc212c1ef9970d86b3ec95627795ddc447f6a99c3597d2eeba8193f1bfbd29
     cpu_count: 4
     mem_limit: 2G
