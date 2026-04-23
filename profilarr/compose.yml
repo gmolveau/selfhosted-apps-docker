@@ -12,6 +12,16 @@ services:
       - ALL
     # tmpfs:
     #   - /tmp:mode=770,noexec,size=10M,uid=${PUID:?},gid=${PGID:?}
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -sf
+        - http://localhost:6868/api/v1/health
+      interval: 5s
+      timeout: 4s
+      retries: 4
+      start_period: 5s
     volumes:
       - ./volumes/config:/config
     environment:
