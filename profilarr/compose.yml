@@ -3,15 +3,20 @@ version: "3.5"
 services:
   profilarr:
     container_name: profilarr
-    image: santiagosayshey/profilarr:v1.1.4@sha256:96cc212c1ef9970d86b3ec95627795ddc447f6a99c3597d2eeba8193f1bfbd29
+    # image: santiagosayshey/profilarr:v1.1.4@sha256:96cc212c1ef9970d86b3ec95627795ddc447f6a99c3597d2eeba8193f1bfbd29
+    image: profilarr:local
+    # NOTE: dockerhub image does not work, had to rebuild it locally
+    # git clone https://github.com/Dictionarry-Hub/profilarr.git
+    # docker build -t profilarr:local .
     cpu_count: 4
     mem_limit: 2G
     memswap_limit: 2G
-    # read_only: true
+    read_only: true
     cap_drop:
       - ALL
-    # tmpfs:
-    #   - /tmp:mode=770,noexec,size=10M,uid=${PUID:?},gid=${PGID:?}
+    user: ${PUID:?}:${PGID:?}
+    tmpfs:
+      - /tmp:mode=770,noexec,size=10M,uid=${PUID:?},gid=${PGID:?}
     healthcheck:
       test:
         - CMD
