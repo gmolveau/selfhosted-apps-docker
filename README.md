@@ -6,9 +6,10 @@
 - custom nginx-proxy container with increased request body size
 - with a dedicated docker network `proxy`
 
-## *arr stack
+## media + `*arr` stack
 
 - `Prowlarr` — indexer manager; connects to torrent/usenet indexers and feeds them to the other *arrs
+- `Profilarr` - Configuration Management Platform for Radarr/Sonarr
 - `Sonarr` — monitors and auto-downloads TV shows
 - `Radarr` — same as Sonarr but for movies
 - `Lidarr` — same concept but for music

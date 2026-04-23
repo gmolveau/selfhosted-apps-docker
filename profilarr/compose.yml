@@ -1,0 +1,34 @@
+version: "3.5"
+
+services:
+  sonarr:
+    container_name: sonarr
+    image: santiagosayshey/profilarr:v1.1.4@sha256:96cc212c1ef9970d86b3ec95627795ddc447f6a99c3597d2eeba8193f1bfbd29
+    cpu_count: 4
+    mem_limit: 2G
+    memswap_limit: 2G
+    # read_only: true
+    cap_drop:
+      - ALL
+    # tmpfs:
+    #   - /tmp:mode=770,noexec,size=10M,uid=${PUID:?},gid=${PGID:?}
+    volumes:
+      - ./volumes/config:/config
+    environment:
+      # General
+      - TZ=Europe/Paris
+      - PUID=${PUID:?}
+      - PGID=${PGID:?}
+      # NGINX + LETSENCRYPT
+      - VIRTUAL_PORT=6868
+      - VIRTUAL_HOST=${APP_DOMAIN:?}
+      - LETSENCRYPT_HOST=${APP_DOMAIN:?}
+    networks:
+      - proxy
+      - arr
+
+networks:
+  proxy:
+    external: true
+  arr:
+    external: true
