@@ -38,6 +38,8 @@ services:
       - VIRTUAL_PORT=6868
       - VIRTUAL_HOST=${APP_DOMAIN:?}
       - LETSENCRYPT_HOST=${APP_DOMAIN:?}
+      # APP
+      - ORIGIN=${ORIGIN:?}
     networks:
       - proxy
       - arr
