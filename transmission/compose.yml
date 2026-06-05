@@ -23,7 +23,7 @@ services:
       - https_proxy=http://gluetun:8888
       - no_proxy=prowlarr,flaresolverr,sonarr,radarr,lidarr,bazarr,unpackerr,localhost,127.0.0.1
     volumes:
-      - ~/files/downloads:/downloads/complete
+      - ~/files/downloads:/data/downloads
       - ./volumes/config:/config
       - ./volumes/incomplete:/downloads/incomplete
     networks:
