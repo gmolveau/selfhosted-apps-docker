@@ -3,7 +3,7 @@ version: "3.5"
 services:
   plex:
     container_name: plex
-    image: plexinc/pms-docker:1.42.1.10060-4e8b05daf
+    image: plexinc/pms-docker:1.43.4.10903-e5521bd8c
     hostname: ${APP_DOMAIN}
     restart: on-failure:5
     environment:
@@ -32,19 +32,19 @@ services:
       - ~/files/videos:/data/videos
       - ~/files/photos:/data/photos
 
-  # threadfin:
-  #   hostname: threadfin
-  #   image: fyb3roptik/threadfin:1.2.32
-  #   restart: on-failure:5
-  #   ports:
-  #     - 127.0.0.1:34400:34400
-  #   environment:
-  #     # General
-  #     - TZ=Europe/Paris
-  #   volumes:
-  #     - ./volumes/threadfin:/home/threadfin/conf
-  #   networks:
-  #     - plex
+# threadfin:
+#   hostname: threadfin
+#   image: fyb3roptik/threadfin:1.2.32
+#   restart: on-failure:5
+#   ports:
+#     - 127.0.0.1:34400:34400
+#   environment:
+#     # General
+#     - TZ=Europe/Paris
+#   volumes:
+#     - ./volumes/threadfin:/home/threadfin/conf
+#   networks:
+#     - plex
 
 networks:
   proxy:
