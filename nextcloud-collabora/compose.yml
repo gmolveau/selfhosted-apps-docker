@@ -23,7 +23,7 @@ services:
   nextcloud_app:
     container_name: nextcloud_app
     hostname: nextcloud_app
-    image: nextcloud:35-apache
+    image: nextcloud:35.0.2-apacheh@sha256:b2de54764f1ce7d47d221536f72af93567116420d6c06cfc16bccf55b0403fbe
     restart: on-failure:5
     depends_on:
       - nextcloud_db
