@@ -14,7 +14,7 @@ UP_APPS=(
     "lidarr"
     "bazarr"
     "profilarr"
-    "prowlarr" # depends_on gluetun
+    "prowlarr"     # depends_on gluetun
     "transmission" # depends_on gluetun
     "torrensearch" # depends_on gluetun
     "seer"
@@ -28,12 +28,13 @@ UP_APPS=(
 )
 
 function up() {
+    docker network create arr
     for app in "${UP_APPS[@]}"; do
         (
-            cd "${app}" \
-                && docker compose pull \
-                && docker compose build --pull --force-rm --no-cache \
-                && docker compose up --build --force-recreate -d
+            cd "${app}" &&
+                docker compose pull &&
+                docker compose build --pull --force-rm --no-cache &&
+                docker compose up --build --force-recreate -d
         )
     done
     docker system prune -f
@@ -49,7 +50,7 @@ DOWN_APPS=(
     "lidarr"
     "bazarr"
     "profilarr"
-    "prowlarr" # depends_on gluetun
+    "prowlarr"     # depends_on gluetun
     "transmission" # depends_on gluetun
     "gluetun"
     "h5ai"
@@ -66,8 +67,8 @@ DOWN_APPS=(
 function down() {
     for app in "${DOWN_APPS[@]}"; do
         (
-            cd "${app}" \
-                && docker compose down
+            cd "${app}" &&
+                docker compose down
         )
     done
     docker system prune -f
@@ -85,19 +86,19 @@ if (($# < 1)); then
 fi
 
 case "$1" in
-    "up")
-        shift
-        up "$@"
-        ;;
-    "down")
-        shift
-        down "$@"
-        ;;
-    *)
-        echo "unknown command"
-        print_usage
-        exit 1
-        ;;
+"up")
+    shift
+    up "$@"
+    ;;
+"down")
+    shift
+    down "$@"
+    ;;
+*)
+    echo "unknown command"
+    print_usage
+    exit 1
+    ;;
 esac
 
 exit 0
